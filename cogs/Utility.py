@@ -5,22 +5,16 @@ from discord.ext import commands
 from dateutil.relativedelta import relativedelta
 from datetime import date
 
-class age(commands.Cog):
+class Util(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
-
-
     @app_commands.command(name="age")
-    @app_commands.describe(year="Year of birth.")
-    @app_commands.describe(month="Month of birth.")
-    @app_commands.describe(day="Day of birth.")
     async def age(self, interaction:discord.Interaction, 
                   year: app_commands.Range[int, 1900, 2023], 
                   month: app_commands.Range[int, 1, 12],
                   day: app_commands.Range[int, 1, 31]) -> None:
         """Input your age to check eligibility for the 18+ role."""
-        # await interaction.response.send_message("This command is currently a work in progress.\nThe bot is being rewritten in Python.\n\nPing <@982435127206494229> to get the 18+ role.", ephemeral=True)
 
         async def calculate(birth):
             today = date.today()
@@ -48,4 +42,4 @@ class age(commands.Cog):
                 await interaction.followup.send(f"You are not eligible for the role.", ephemeral=True)
 
 async def setup(bot: commands.Bot) -> None:
-    await bot.add_cog(age(bot))
+    await bot.add_cog(Util(bot))
